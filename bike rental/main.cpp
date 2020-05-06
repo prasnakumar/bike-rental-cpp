@@ -1,112 +1,312 @@
 #include <iostream>
 #include <fstream>
-#include <cstring>
+#include  <string.h>
 using namespace std;
-char bike[20]="bike.txt",rents[20]="rents.txt";
-struct record
-{
-    char bike[50],brand_name[50],mileage[40],rents[10];
-};
-class a{
-public:void pack(record r);
-    record unpack(char a[]);
-    void bikes();
-    void addbikes();};
+char bike[50]="bike.txt";
 
-void a::pack(record r)
-{fstream fp;
-fp.open(bike,ios::out|ios::app);
-char buff[45];
-strcpy(buff,r.bike);
-strcat(buff,"|");
-strcat(buff,r.brand_name);
-strcat(buff,"|");
-strcat(buff,r.mileage);
-strcat(buff,"|");
-strcat(buff,r.rents);
-strcat(buff,"|");
-for(int i=0;i<70-strlen(buff);i++)
-    strcat(buff,"|");
-fp<<buff<<endl;
-fp.close();
-}
-record a::unpack(char buff[])
+void rented_bike()
 {
-    record r;
-    int i=0,j=0;
-    while(buff[j]!='|')
-        r.bike[i++]=buff[j++];
-    r.bike[i]='\0';
-    i=0;
-    j++;
-  while(buff[j]!='|')
-        r.brand_name[i++]=buff[j++];
-    r.brand_name[i]='\0';
-    i=0;
-    j++;
-      while(buff[j]!='|')
-        r.mileage[i++]=buff[j++];
-    r.mileage[i]='\0';
-    i=0;
-    j++;
-       while(buff[j]!='|')
-        r.rents[i++]=buff[j++];
-    r.rents[i]='\0';
-    return(r);
+
+    fstream stud;
+    fstream temp;
+    fstream del;
+    stud.open(bike,ios::in);
+    temp.open("temp.txt",ios::out);
+    del.open("del.txt",ios::out);
+    char id[10];
+    char bikename[25];
+    char model[25];
+    char milage[25];
+    char rent[20];
+    char a[25];
+    cin.ignore();
+    cout<<" \n\t enter the bikeid  to be rented  record : ";
+    cin.getline(a,25);
+    while(!stud.eof())
+    {
+        stud.getline(id,25,'|');
+        stud.getline(bikename,25,'|');
+        stud.getline(model,25,'|');
+        stud.getline(milage,25,'|');
+        stud.getline(rent,25);
+        if(strcmp(id,a)==0)
+        {
+            del<<id<<'|'<<bikename<<'|'<<model<<'|'<<milage<<'|'<<rent<<'\n';
+            continue;
+        }
+        else
+        {
+            temp<<id<<'|'<<bikename<<'|'<<model<<'|'<<milage<<'|'<<rent<<'\n';
+        }
+
+
     }
-void a::addbikes(){
-record r;
-cout<<"enter the bike\n";
-cin>>r.bike;
-cout<<"enter the model\n";
-cin>>r.brand_name;
-cout<<"enter the mileage of bike \n";
-cin>>r.mileage;
-cout<<"cost for per hour of usage\n";
-cin>>r.rents;
-pack(r);
-}
-void a::bikes(){
-cout<<"all the bikes";
-fstream fp;
-char buff[45];
-record r;
-fp.open(bike,ios::in);
-cout<<"\n#\tbike\tmodel\tmileage\trent cost per hr\n";
-int c=1;
-while(1)
-{fp.getline(buff,70);
-    if(fp.eof())break;
-    r=unpack(buff);
-cout<<c++<<"\t"<<r.bike<<"\t"<<r.brand_name<<"\t"<<r.mileage<<"\t"<<r.rents<<endl;
+    temp.close();
+    stud.close();
+    del.close();
 
+    stud.open(bike,ios::out);
+    temp.open("temp.txt",ios::in);
+    while(!temp.eof())
+    {
+        temp.getline(id,25,'|');
+        temp.getline(bikename,25,'|');
+        temp.getline(model,25,'|');
+        temp.getline(milage,25,'|');
+        temp.getline(rent,25);
+        stud<<id<<'|'<<bikename<<'|'<<model<<'|'<<milage<<'|'<<rent<<'\n';
+    }
+    temp.close();
+    stud.close();
+    //remove("temp.txt");
+    cout<<"\n done !!! \n";
 }
-fp.close();
+void delete_bike()
+{
+
+    fstream stud;
+    fstream temp;
+    fstream del;
+    stud.open(bike,ios::in);
+    temp.open("temp.txt",ios::out);
+    del.open("del.txt",ios::out);
+    char id[10];
+    char bikename[25];
+    char model[25];
+    char milage[25];
+    char rent[20];
+    char a[25];
+    cin.ignore();
+    cout<<" \n\t enter the bikeid  to be rented  record : ";
+    cin.getline(a,25);
+    while(!stud.eof())
+    {
+        stud.getline(id,25,'|');
+        stud.getline(bikename,25,'|');
+        stud.getline(model,25,'|');
+        stud.getline(milage,25,'|');
+        stud.getline(rent,25);
+        if(strcmp(id,a)==0)
+        {
+            continue;
+        }
+        else
+        {
+            temp<<id<<'|'<<bikename<<'|'<<model<<'|'<<milage<<'|'<<rent<<'\n';
+        }
+
+
+    }
+    temp.close();
+    stud.close();
+    del.close();
+
+    stud.open(bike,ios::out);
+    temp.open("temp.txt",ios::in);
+    while(!temp.eof())
+    {
+        temp.getline(id,25,'|');
+        temp.getline(bikename,25,'|');
+        temp.getline(model,25,'|');
+        temp.getline(milage,25,'|');
+        temp.getline(rent,25);
+        stud<<id<<'|'<<bikename<<'|'<<model<<'|'<<milage<<'|'<<rent<<'\n';
+    }
+    temp.close();
+    stud.close();
+    //remove("temp.txt");
+    cout<<"\n done !!! \n";
 }
+void update_bike()
+{
+    fstream stud;
+    fstream temp;
+
+    stud.open(bike,ios::in);
+    temp.open("temp.txt",ios::out);
+    char id[10];
+    char bikename[25];
+    char model[25];
+    char milage[25];
+    char rent[20];
+    char a[25];
+    cin.ignore();
+    cout<<" \n\t enter the bikeid  to update record : ";
+    cin.getline(a,25);
+    while(!stud.eof())
+    {
+         stud.getline(id,25,'|');
+        stud.getline(bikename,25,'|');
+        stud.getline(model,25,'|');
+        stud.getline(milage,25,'|');
+        stud.getline(rent,25);
+        if(strcmp(id,a)==0)
+        {
+
+            cout<<" \n\tenter new value of record  \n ";
+            cout<<" \n bike id : ";
+            cin.getline(id,25);
+            cout<<" \n the name of the bike : ";
+            cin.getline(bikename,25);
+            cout<<" \n model ";
+            cin.getline(model,25);
+               cout<<" \n milage: ";
+            cin.getline(milage,25);
+               cout<<" \n rent";
+            cin.getline(rent,25);
+            temp<<id<<'|'<<bikename<<'|'<<model<<'|'<<milage<<'|'<<rent<<'\n';
+        }
+        else
+        {
+            temp<<id<<'|'<<bikename<<'|'<<model<<'|'<<milage<<'|'<<rent<<'\n';
+        }
+
+
+    }
+    temp.close();
+    stud.close();
+
+    stud.open(bike,ios::out);
+    temp.open("temp.txt",ios::in);
+    while(!temp.eof())
+    {
+        temp.getline(id,25,'|');
+        temp.getline(bikename,25,'|');
+        temp.getline(model,25,'|');
+        temp.getline(milage,25,'|');
+        temp.getline(rent,25);
+        stud<<id<<'|'<<bikename<<'|'<<model<<'|'<<milage<<'|'<<rent<<'\n';
+    }
+    temp.close();
+    stud.close();
+    remove("temp.txt");
+    cout<<"\n done !!! \n";
+}
+void display_all()
+{
+ char id[10];
+    char bikename[25];
+    char model[25];
+    char milage[25];
+    char rent[20];
+    char a[25];
+    fstream stud;
+    stud.open(bike,ios::in);
+
+    cout<< " \n\t id \t bike \t model \t milage \t rent \n";
+    while(!stud.eof())
+    {
+        stud.getline(id,25,'|');
+        stud.getline(bikename,25,'|');
+        stud.getline(model,25,'|');
+        stud.getline(milage,25,'|');
+        stud.getline(rent,25);
+        cout<< "\n \t "<< id << "\t"<<bikename<< "\t" << model<< "\t" << milage <<"\t"<<rent<<endl;
+
+    }
+}
+void search_bike(   )
+{
+
+    fstream stud;
+    stud.open(bike,ios::in);
+    char id[10];
+    char bikename[25];
+    char model[25];
+    char milage[25];
+    char rent[20];
+    char a[25];
+    cout<<" \n enter the bikeid  to search about it : ";
+    cin.ignore();
+    cin.getline(a,25);
+    int x=0;
+    cout<< " \n\t id \t bike \t model \t milage \t rent \n";
+    while(!stud.eof())
+    {
+        stud.getline(id,25,'|');
+        stud.getline(bikename,25,'|');
+        stud.getline(model,25,'|');
+        stud.getline(milage,25,'|');
+        stud.getline(rent,25);
+        if(strcmp(id, a)==0)
+        {
+
+        cout<< "\n \t "<< id << "\t"<<bikename<< "\t" << model<< "\t" << milage <<"\t"<<rent<<endl;
+            x=1;
+            break;
+        }
+
+    }
+    if(x==0)
+    {
+        cout<<" \n not found !!!!\n";
+    }
+    stud.close();
+}
+void  insert_bike()
+{
+
+    char id[10];
+    char bikename[25];
+    char model[25];
+    char milage[25];
+    char rent[20];
+    char a[25];
+    fstream stud;
+    stud.open(bike, ios::app);
+    cin.ignore();
+    cout<<" \n bike id : ";
+    cin.getline(id,25);
+    cout<<" \n the name of the bike : ";
+    cin.getline(bikename,25);
+    cout<<" \n model ";
+    cin.getline(model,25);
+    cout<<" \n milage: ";
+    cin.getline(milage,25);
+    cout<<" \n rent";
+    cin.getline(rent,25);
+    stud<<id<<'|'<<bikename<<'|'<<model<<'|'<<milage<<'|'<<rent<<'\n';
+    cout<< "done !";
+    stud.close();
+}
+
 int main()
-{char number;
-a b;
+{
+    bool flag=true;
+    while (flag)
+    {
+        cout << " insert : 1 \n search : 2 \n display all : 3 \n update : 4 \n delete :  5 \n write your choose : ";
+        int c;
+        cin>>c;
+        switch (c)
+        {
+        case 1 :
+            insert_bike();
+            break;
+        case 2:
+            search_bike();
+            break;
+        case 3:
+            display_all();
+            break;
+        case 4 :
+            update_bike();
 
-    cout<<"1. BIKES";
-    cout<<"2. add bikes";
-    cout<<"3. display all bikes";
-    cout<<"4. Exit";
+            break;
+        case 5 :
+            delete_bike();
+            break;
+        default :
+            cout << " \n choose right number \n";
+        }
+        cout << " if you continue to use program press ' y ' \n ";
+        char f;
+        cin>>f;
+        if(f!='y')
+        {
+            flag=false;
+        }
+    }
+    return 0;
+}
 
-    while('4'){
-            cin>>number;
-    switch(number)
-    {case '1':
-        b.bikes();
-        break;
-case '2':
-    b.addbikes();
-    break;
-case '3':
-    b.bikes();
-    break;
-
-case '4':
-    exit(0);
-    }
-    }
-    }

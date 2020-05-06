@@ -1,4 +1,6 @@
 # depslib dependency file v1.0
-1588686996 source:/home/prasanna/bike/bike-rental-cpp/bike rental/main.cpp
+1588779882 source:/home/prasanna/bike/bike-rental-cpp/bike rental/main.cpp
 	<iostream>
+	<fstream>
+	<string.h>
 
