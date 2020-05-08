@@ -1,8 +1,10 @@
 #include <iostream>
 #include <fstream>
 #include  <string.h>
+#include <ctime>
 using namespace std;
 char bike[50]="bike.txt";
+char rent1[50]="rent.txt";
 
 void rented_bike()
 {
@@ -10,18 +12,30 @@ void rented_bike()
     fstream stud;
     fstream temp;
     fstream del;
-    stud.open(bike,ios::in);
+    stud.open(rent1,ios::in);
     temp.open("temp.txt",ios::out);
-    del.open("del.txt",ios::out);
+    del.open("del.txt",ios::out | ios::in | ios::app);
+     time_t now = time(0);
+    char* dt = ctime(&now);
     char id[10];
     char bikename[25];
     char model[25];
     char milage[25];
     char rent[20];
     char a[25];
+    char name[100];
+    int p,q,r;
     cin.ignore();
     cout<<" \n\t enter the bikeid  to be rented  record : ";
     cin.getline(a,25);
+    cout<<"enter the number of days you want to rent the bike : ";
+    cin>>p;
+    cout<<"please confirm the rentcost given in display tabel :";
+    cin>>q;
+    r=p*q;
+    cout<<"enter the name";
+    cin>>name;
+
     while(!stud.eof())
     {
         stud.getline(id,25,'|');
@@ -31,7 +45,7 @@ void rented_bike()
         stud.getline(rent,25);
         if(strcmp(id,a)==0)
         {
-            del<<id<<'|'<<bikename<<'|'<<model<<'|'<<milage<<'|'<<rent<<'\n';
+            del<<"-------------\n"<<name<<"\t"<<id<<"\t"<<bikename<<"\t"<<model<<"\t"<<milage<<"\t"<<rent<<"\t"<<r<<"\t"<<dt<<"\t"<<"\n---------------------------------------";
             continue;
         }
         else
@@ -45,7 +59,7 @@ void rented_bike()
     stud.close();
     del.close();
 
-    stud.open(bike,ios::out);
+    stud.open(rent1,ios::out);
     temp.open("temp.txt",ios::in);
     while(!temp.eof())
     {
@@ -205,6 +219,18 @@ void display_all()
 
     }
 }
+void rentedbikes_customer(){
+ fstream file;
+file.open("del.txt");
+string word;
+
+    // extracting words form the file
+    while (file >> word) {
+
+        // displaying content of
+        // destination file
+        cout << word << " "<<"\n";
+    } file.close();}
 void search_bike(   )
 {
 
@@ -242,6 +268,27 @@ void search_bike(   )
         cout<<" \n not found !!!!\n";
     }
     stud.close();
+}void rented_display()
+{
+    char id[10];
+    char bikename[25];
+    char model[25];
+    char milage[25];
+    char rent[20];
+    char a[25];
+    fstream stud;
+    stud.open(rent1,ios::in);
+
+    cout<< " \n\t id \t bike \t model \t milage \t rent \n";
+    while(!stud.eof())
+    {
+        stud.getline(id,25,'|');
+        stud.getline(bikename,25,'|');
+        stud.getline(model,25,'|');
+        stud.getline(milage,25,'|');
+        stud.getline(rent,25);
+        cout<< "\n \t "<< id << "\t"<<bikename<< "\t" << model<< "\t" << milage <<"\t"<<rent<<endl;
+    }
 }
 void  insert_bike()
 {
@@ -252,6 +299,7 @@ void  insert_bike()
     char milage[25];
     char rent[20];
     char a[25];
+    int re[20];
     fstream stud;
     stud.open(bike, ios::app);
     cin.ignore();
@@ -269,13 +317,26 @@ void  insert_bike()
     cout<< "done !";
     stud.close();
 }
-
-int main()
+void addallbikes()
+{
+    fstream file;
+    ifstream ifile(bike, ios::in);
+    ofstream ofile(rent1, ios::out);
+    if (!ifile.is_open()) {
+        cout << "file not found";
+    }
+    else {
+        ofile << ifile.rdbuf();
+    }
+ifile.close();
+ofile.close();
+    }
+void admin()
 {
     bool flag=true;
     while (flag)
     {
-        cout << " insert : 1 \n search : 2 \n display all : 3 \n update : 4 \n delete :  5 \n write your choose : ";
+        cout << " insert : 1 \n search : 2 \n display all : 3 \n update : 4 \n delete :  5 \n add all bikes to rents : 6\n rented bikes today : 7\n";
         int c;
         cin>>c;
         switch (c)
@@ -296,6 +357,12 @@ int main()
         case 5 :
             delete_bike();
             break;
+        case 6:
+            addallbikes();
+            break;
+        case 7:
+            rentedbikes_customer();
+            break;
         default :
             cout << " \n choose right number \n";
         }
@@ -307,6 +374,68 @@ int main()
             flag=false;
         }
     }
-    return 0;
-}
 
+}
+void cust()
+{
+ bool flag=true;
+    while (flag)
+    {
+        cout << " \n 1. display bikes  \n 2. rented bikes \n 3.rent a bike   \n write your choose : ";
+        int c;
+        cin>>c;
+        switch (c)
+        {
+        case 1 :
+            rented_display();
+            break;
+        case 2:
+            rentedbikes_customer();
+            break;
+        case 3:
+            rented_bike();
+            break;
+        default :
+            cout << " \n choose right number \n";
+        }
+        cout << " if you continue to use program press ' y ' \n ";
+        char f;
+        cin>>f;
+        if(f!='y')
+        {
+            flag=false;
+        }
+    }
+
+}
+int main()
+{int a,p=0;
+char password[10],admins[10]="admin",customer[10]="cust";
+    int c=1,d=1,ex=0;
+    cout<<"enter the login option.";
+    cout<<"1. admin"<<"\n"<<"2. customer\n";
+    cin>>a;
+    cout<<"enter the password.";
+    cin>>password;
+    while(c==d){
+    switch(a)
+    {case 1:
+       {
+
+       if(strcmp(password,admins)==0){
+        admin();
+        c=3;
+        break;}else{
+            cout<<"wrong password\n see you later "<<endl;exit(0);}
+
+ case 2:
+    {
+        if(strcmp(password,customer)==0)
+            {cust();
+            c=3;break;}
+            else
+                exit(0);
+}
+  default: cout<<"enter again";
+}}
+}}
