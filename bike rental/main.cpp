@@ -2,6 +2,7 @@
 #include <fstream>
 #include  <string.h>
 #include <ctime>
+#include <iomanip>
 using namespace std;
 char bike[50]="bike.txt";
 char rent1[50]="rent.txt";
@@ -45,7 +46,7 @@ void rented_bike()
         stud.getline(rent,25);
         if(strcmp(id,a)==0)
         {
-            del<<"-------------\n"<<name<<"\t"<<id<<"\t"<<bikename<<"\t"<<model<<"\t"<<milage<<"\t"<<rent<<"\t"<<r<<"\t"<<dt<<"\t"<<"\n---------------------------------------";
+            del<<"-------------\n"<<"name->"<<name<<"\t"<<"id->"<<id<<"\t"<<"bike->"<<bikename<<"\t"<<"model->"<<model<<"\t"<<"milage->"<<milage<<"\t"<<"rent->"<<rent<<"\t"<<"number_of_days->"<<p<<"\t"<<"rent_cost->"<<r<<"\t"<<"date_of_booking->"<<dt<<"\t"<<"\n---------------------------------------";
             continue;
         }
         else
@@ -131,13 +132,15 @@ void delete_bike()
     //remove("temp.txt");
     cout<<"\n done !!! \n";
 }
+
+
 void update_bike()
 {
     fstream stud;
     fstream temp;
 
     stud.open(bike,ios::in);
-    temp.open("temp.txt",ios::out);
+    temp.open("temp1.txt",ios::out);
     char id[10];
     char bikename[25];
     char model[25];
@@ -149,11 +152,11 @@ void update_bike()
     cin.getline(a,25);
     while(!stud.eof())
     {
-         stud.getline(id,25,'|');
+         stud.getline(id,10,'|');
         stud.getline(bikename,25,'|');
         stud.getline(model,25,'|');
         stud.getline(milage,25,'|');
-        stud.getline(rent,25);
+        stud.getline(rent,20);
         if(strcmp(id,a)==0)
         {
 
@@ -181,7 +184,7 @@ void update_bike()
     stud.close();
 
     stud.open(bike,ios::out);
-    temp.open("temp.txt",ios::in);
+    temp.open("temp1.txt",ios::in);
     while(!temp.eof())
     {
         temp.getline(id,25,'|');
@@ -198,6 +201,9 @@ void update_bike()
 }
 void display_all()
 {
+     const char separator    = ' ';
+    const int nameWidth     = 20;
+    const int numWidth      = 10;
  char id[10];
     char bikename[25];
     char model[25];
@@ -206,8 +212,9 @@ void display_all()
     char a[25];
     fstream stud;
     stud.open(bike,ios::in);
-
-    cout<< " \n\t id \t bike \t model \t milage \t rent \n";
+    cout<<"\n---------------------------------------------------------------------------";
+    cout<<"\nid\tbikename\t\tmodel\t\tmilage\t\trent";
+    cout<<"\n---------------------------------------------------------------------------";
     while(!stud.eof())
     {
         stud.getline(id,25,'|');
@@ -215,7 +222,7 @@ void display_all()
         stud.getline(model,25,'|');
         stud.getline(milage,25,'|');
         stud.getline(rent,25);
-        cout<< "\n \t "<< id << "\t"<<bikename<< "\t" << model<< "\t" << milage <<"\t"<<rent<<endl;
+        cout<< "\n"<< id<<left <<"\t" <<setw(nameWidth) << setfill(separator)<<bikename<<left << setw(nameWidth) << setfill(separator) << model<<left << setw(nameWidth) << setfill(separator) << milage <<left << setw(nameWidth) << setfill(separator) <<rent<<endl;
 
     }
 }
@@ -226,13 +233,12 @@ string word;
 
     // extracting words form the file
     while (file >> word) {
-
-        // displaying content of
-        // destination file
         cout << word << " "<<"\n";
     } file.close();}
 void search_bike(   )
-{
+{     const char separator    = ' ';
+    const int nameWidth     = 20;
+    const int numWidth      = 10;
 
     fstream stud;
     stud.open(bike,ios::in);
@@ -246,7 +252,9 @@ void search_bike(   )
     cin.ignore();
     cin.getline(a,25);
     int x=0;
-    cout<< " \n\t id \t bike \t model \t milage \t rent \n";
+    cout<<"-------------------------------------------------------------------------\n";
+     cout<<"\nid\tbikename\t\tmodel\t\tmilage\t\t   rent\n";
+    cout<<"-------------------------------------------------------------------------\n";
     while(!stud.eof())
     {
         stud.getline(id,25,'|');
@@ -257,7 +265,8 @@ void search_bike(   )
         if(strcmp(id, a)==0)
         {
 
-        cout<< "\n \t "<< id << "\t"<<bikename<< "\t" << model<< "\t" << milage <<"\t"<<rent<<endl;
+       cout<< "\n"<< id<<left <<"\t" <<setw(nameWidth) << setfill(separator)<<bikename<<left << setw(nameWidth) << setfill(separator) << model<<left << setw(nameWidth) << setfill(separator) << milage <<left << setw(nameWidth) << setfill(separator) <<rent<<endl;
+
             x=1;
             break;
         }
@@ -270,6 +279,9 @@ void search_bike(   )
     stud.close();
 }void rented_display()
 {
+         const char separator    = ' ';
+    const int nameWidth     = 20;
+    const int numWidth      = 10;
     char id[10];
     char bikename[25];
     char model[25];
@@ -278,8 +290,9 @@ void search_bike(   )
     char a[25];
     fstream stud;
     stud.open(rent1,ios::in);
-
-    cout<< " \n\t id \t bike \t model \t milage \t rent \n";
+cout<<"--------------------------------------------------------------------------------\n";
+ cout<<"\nid\tbikename\t\tmodel\t\tmilage\t\t     rent\n";
+    cout<<"-------------------------------------------------------------------------------\n";
     while(!stud.eof())
     {
         stud.getline(id,25,'|');
@@ -287,8 +300,9 @@ void search_bike(   )
         stud.getline(model,25,'|');
         stud.getline(milage,25,'|');
         stud.getline(rent,25);
-        cout<< "\n \t "<< id << "\t"<<bikename<< "\t" << model<< "\t" << milage <<"\t"<<rent<<endl;
-    }
+        cout<< "\n"<< id<<left <<"\t" <<setw(nameWidth) << setfill(separator)<<bikename<<left << setw(nameWidth) << setfill(separator) << model<<left << setw(nameWidth) << setfill(separator) << milage <<left << setw(nameWidth) << setfill(separator) <<rent<<endl;
+
+    }cout<<"------------------------------------------------------------------------------\n";
 }
 void  insert_bike()
 {
@@ -301,7 +315,7 @@ void  insert_bike()
     char a[25];
     int re[20];
     fstream stud;
-    stud.open(bike, ios::app);
+    stud.open(bike,ios::app);
     cin.ignore();
     cout<<" \n bike id : ";
     cin.getline(id,25);
@@ -331,12 +345,17 @@ void addallbikes()
 ifile.close();
 ofile.close();
     }
+    void removeallcontents()
+    {std::ofstream ofs;
+ofs.open("del.txt", std::ofstream::out | std::ofstream::trunc);
+ofs.close();
+    }
 void admin()
 {
     bool flag=true;
     while (flag)
     {
-        cout << " insert : 1 \n search : 2 \n display all : 3 \n update : 4 \n delete :  5 \n add all bikes to rents : 6\n rented bikes today : 7\n";
+        cout << " insert : 1 \n search : 2 \n display all : 3 \n update : 4 \n delete :  5 \n add all bikes to rents : 6\n rented bikes today : 7\n remove all the contents  : 8\n";
         int c;
         cin>>c;
         switch (c)
@@ -352,7 +371,6 @@ void admin()
             break;
         case 4 :
             update_bike();
-
             break;
         case 5 :
             delete_bike();
@@ -362,6 +380,9 @@ void admin()
             break;
         case 7:
             rentedbikes_customer();
+            break;
+        case 8:
+            removeallcontents();
             break;
         default :
             cout << " \n choose right number \n";
@@ -412,15 +433,18 @@ int main()
 {int a,p=0;
 char password[10],admins[10]="admin",customer[10]="cust";
     int c=1,d=1,ex=0;
-    cout<<"enter the login option.";
+    bool flag=true;
+    while (flag)
+    {
+        cout<<"enter the login option.\n";
     cout<<"1. admin"<<"\n"<<"2. customer\n";
     cin>>a;
     cout<<"enter the password.";
     cin>>password;
-    while(c==d){
-    switch(a)
-    {case 1:
-       {
+        switch (a)
+        {
+        case 1 :
+            {
 
        if(strcmp(password,admins)==0){
         admin();
@@ -428,14 +452,29 @@ char password[10],admins[10]="admin",customer[10]="cust";
         break;}else{
             cout<<"wrong password\n see you later "<<endl;exit(0);}
 
- case 2:
-    {
+            break;}
+        case 2:
+            {
         if(strcmp(password,customer)==0)
             {cust();
             c=3;break;}
             else
                 exit(0);
+                }
+                break;
+
+
+        default :
+            exit(0);
+
+        }
+        cout << " if you want logout press 'n' or if you want to continues ' y ' \n ";
+        char f;
+        cin>>f;
+        if(f!='y')
+        {
+            flag=false;
+        }
+    }
+
 }
-  default: cout<<"enter again";
-}}
-}}

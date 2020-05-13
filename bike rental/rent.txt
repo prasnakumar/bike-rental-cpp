@@ -1,4 +1,32 @@
-||||
+2|Triumph|street Twin|27km/l|1000rs/hr
+3|Triumph|Bonneville t120|28km/l|1000rs/hr
+4|Triumph|Bobber|28km/l|800rs/hr
+5|Triumph|speed Triple|26km/l|1000rs/hr
+6|Royal Enfield|Classic 350|33km/l|120rss/hr
+7|Royal Enfield|Bullet 350|35km/l|180rs/hr
+8|Royal Enfield|Himalayan|30km/l|160rs/hr
+9|Royal Enfield|Interceptor 650|30km/l|100rs/hr
+10|Royal Enfield|GT 650|30km/l|800rs/hr
+11|Honda|Activa 6G|45km/l|100rs/hr
+12|Honda|Shine|40km/l|80rs/hr
+13|Honda|Activa 125|45km/l|100rs/hr
+14|Honda|SP 125|40km/l|100rs/hr
+15|Honda|Dio|50km/l|555rs/hr
+16|Yamaha|YZF R15 v3|44km/l|200rs/hr|
+17|Yamaha|MT 15|32km/l|200rs/hr
+18|Yamaha|fZS v3|30km/l|200rs/hr
+19|Yamaha|Fascino 125|47km/l|200rs/hr
+20|Yamaha|R1|32km/l|600rs/hr
+21|Jawa|JAWA|40km/l|200rs/hr
+22|Jawa|JAWA 42|40km/l|200rs/hr
+23|Jawa|Jawa Perak|50km/l|555rs/hr
+24|Suzuki |Access 125|50km/l|50rs/hr
+25|Suzuki |Gixxer SF|40km/l|500rs/hr
+26|Suzuki |Hayabussa|20km/l|10000rs/hr
+27|Suzuki |GSX S750|20km/l|1000rs/hr
+29|Suzuki|Gixxer 250 SF|25km/l|4000rs/hr
+31|Honda|africa twin|30km/l|4000rs/hr
+30|bike|05|40km/l|122rs/hr
 ||||
 ||||
 ||||
